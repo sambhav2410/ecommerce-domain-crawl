@@ -1,0 +1,51 @@
+<!-- yourapp/templates/crawl_ui.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crawl URLs</title>
+  <script>
+    async function startCrawl() {
+      const domain = document.getElementById("domain").value;
+      const urlCount = document.getElementById("url_count").value;
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "Starting crawl... <br><img src='https://i.stack.imgur.com/kOnzy.gif' width='50'/>";
+
+      const res = await fetch("start-crawl/", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({domain, url_count: urlCount})
+      });
+
+      const data = await res.json();
+      if (data.task_id) {
+        pollProgress(data.task_id);
+      } else {
+        resultDiv.innerHTML = "Error: " + data.error;
+      }
+    }
+
+    async function pollProgress(taskId) {
+      const resultDiv = document.getElementById("result");
+      const interval = setInterval(async () => {
+        const res = await fetch(`get-progress/${taskId}/`);
+        const data = await res.json();
+
+        if (data.status === "completed") {
+          clearInterval(interval);
+          resultDiv.innerHTML = `<b>Crawling completed</b><pre>${JSON.stringify(data.urls, null, 2)}</pre>`;
+        } else {
+          resultDiv.innerHTML = `Crawling in progress... Crawled ${data.count} URLs... <br><img src='https://i.stack.imgur.com/kOnzy.gif' width='50'/>`;
+        }
+      }, 2000);
+    }
+  </script>
+</head>
+<body>
+  <h1>Crawl a Domain</h1>
+  <input type="text" id="domain" placeholder="https://example.com" />
+  <input type="number" id="url_count" placeholder="Number of URLs" value="1000" />
+  <button onclick="startCrawl()">Start Crawl</button>
+  <div id="result" style="margin-top:20px;"></div>
+</body>
+</html>

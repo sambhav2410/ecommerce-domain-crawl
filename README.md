@@ -6,13 +6,24 @@ A Django-based web crawler that scans websites to identify and categorize produc
 
 - Domain crawling with configurable depth
 - Product page detection with intelligent URL pattern matching
-- Support for various e-commerce sites including Myntra, H&M, and others
+- Support for various e-commerce sites including Virgio,Flipkart, H&M, and others
 - Content compression handling including Brotli support
 - Asynchronous processing with Celery
 
 ## Screenshot
 
-![alt text](image.png)
+![Raw Ui](image.png)
+
+## Sample Response
+[
+  "https://www2.hm.com/en_in/men/shop-by-product/tshirts-tank-tops/polo.html?colorWithNames=black_000000",
+  "https://www2.hm.com/en_in/kids/boys-9-14y/clothing/basics.html",
+  "https://www2.hm.com/en_in/men/new-arrivals/accessories.html",
+  "https://www2.hm.com/en_in/productpage.1261575004.html",
+  "https://www2.hm.com/en_in/productpage.1265730001.html",
+  "https://www2.hm.com/en_in/kids/girls-9-14y/outerwear.html",
+  "https://www2.hm.com/en_in/productpage.1256818001.html",
+]
 
 ## Prerequisites
 
@@ -240,8 +251,8 @@ http://127.0.0.1:8000/crawler/
 ## Project Structure
 
 ```
-web-crawler/
-├── crawler_project/
+crawler_assignment/
+├── crawler_assignment/
 │   ├── __init__.py
 │   ├── celery.py
 │   ├── settings.py
@@ -255,11 +266,7 @@ web-crawler/
 │   ├── views.py
 │   └── url_processor.py
 ├── templates/
-│   └── crawler/
-│       └── index.html
-├── static/
-│   └── css/
-│       └── styles.css
+│   └── crawler_ui.html
 ├── requirements.txt
 ├── manage.py
 └── README.md
@@ -269,6 +276,3 @@ web-crawler/
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
