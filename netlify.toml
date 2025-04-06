@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/crawler/*"
+  to = "/crawler/index.html"
+  status = 200

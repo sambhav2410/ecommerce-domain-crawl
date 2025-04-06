@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: crawler-assignment
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn crawler_assignment.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: crawler_assignment.settings
+      - key: SECRET_KEY
+        value: your-secret
