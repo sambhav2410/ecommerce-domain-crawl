@@ -4,6 +4,10 @@ services:
     runtime: python
     buildCommand: "./build.sh"
     startCommand: "gunicorn crawler_assignment.wsgi:application"
+    build:
+      cwd: .  # This tells Render to use the root folder (where manage.py is)
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: crawler_assignment.settings
+      - key: PYTHON_VERSION
+        value: 3.11
