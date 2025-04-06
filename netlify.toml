@@ -1,4 +1,8 @@
+[build]
+  publish = "static_site"
+  command = ""
+
 [[redirects]]
-  from = "/crawler/*"
-  to = "/crawler/index.html"
+  from = "/*"
+  to = "/index.html"
   status = 200
